@@ -1,5 +1,11 @@
-function App() {
-  return <div className="text-3xl font-bold underline">User Manager</div>
+import UserTable from './components/UserTable'
+
+const App = () => {
+  return (
+    <div>
+      <UserTable />
+    </div>
+  )
 }
 
 export default App

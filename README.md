@@ -30,6 +30,10 @@ This application is built with the following technologies:
 - [Redux](https://redux.js.org/) - State management library.
 - [React-Redux](https://react-redux.js.org/) - Official bindings for Redux with React.
 - [Redux Toolkit](https://redux-toolkit.js.org/) - Simplified and structured way to use Redux.
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework for rapid UI development.
+- [json-server](https://github.com/typicode/json-server) - Simple mock API for testing data interactions.
+- [@tanstack/react-table](https://tanstack.com/table/v8) - Headless utility for building fast and flexible tables and data grids.
+- [Lucide React](https://lucide.dev/) - A set of beautiful, open-source icons for React applications.
 
 ## Getting Started
 
