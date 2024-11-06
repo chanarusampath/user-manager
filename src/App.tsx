@@ -1,9 +1,9 @@
-import UserTable from './components/UserTable'
+import UsersPage from './pages/UsersPage'
 
 const App = () => {
   return (
-    <div>
-      <UserTable />
+    <div className="mb-10">
+      <UsersPage />
     </div>
   )
 }
