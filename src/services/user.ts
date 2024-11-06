@@ -3,10 +3,18 @@ import { User } from '../types/user'
 
 export const userApi = createApi({
   reducerPath: 'user',
+  tagTypes: ['Users'],
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/' }),
   endpoints: (builder) => ({
     getAllUsers: builder.query<Array<User>, void>({
       query: () => 'users',
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Users' as const, id })),
+              { type: 'Users', id: 'LIST' },
+            ]
+          : [{ type: 'Users', id: 'LIST' }],
     }),
     getUserById: builder.query<User, number>({
       query: (id) => `users/${id}`,
@@ -17,6 +25,7 @@ export const userApi = createApi({
         method: 'POST',
         body: newPost,
       }),
+      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
     }),
   }),
 })

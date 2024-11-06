@@ -1,6 +1,10 @@
 export type User = {
-  id: number
+  id: string
   name: string
   email: string
-  number: string
+  age: number
+  gender: 'male' | 'female'
+  dob: Date
+  country: string
+  city: string
 }
