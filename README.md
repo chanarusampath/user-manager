@@ -104,6 +104,7 @@ user-manager
 │   ├── services        # Services to call backend apis with rtk query.
 │   ├── pages           # Page components
 │   ├── store           # Redux store configuration
+│   ├── features        # Redux slices and feature-specific logic
 │   ├── types           # TypeScript type definitions
 │   ├── App.tsx         # Root component
 │   ├── main.tsx        # Entry point

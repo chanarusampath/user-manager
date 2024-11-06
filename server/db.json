@@ -209,6 +209,16 @@
       "country": "USA",
       "city": "Los Angeles",
       "dob": "2024-10-26T18:30:00.000Z"
+    },
+    {
+      "id": "369d",
+      "name": "saman Kumara",
+      "email": "chanarusampath1@gmail.com",
+      "age": "22",
+      "gender": "male",
+      "country": "USA",
+      "city": "New York",
+      "dob": "2024-10-27T18:30:00.000Z"
     }
   ]
 }

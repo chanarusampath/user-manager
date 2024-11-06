@@ -15,14 +15,11 @@ import {
   ArrowDownWideNarrow,
   ArrowUpNarrowWide,
 } from 'lucide-react'
+import { useAppDispatch } from '../store/hooks'
+import { openModal } from '../features/createUserFormModalSlice'
 
-const UserTable = ({
-  setIsModalOpen,
-  pageSize = 10,
-}: {
-  setIsModalOpen: (val: boolean) => void
-  pageSize?: number
-}) => {
+const UserTable = ({ pageSize = 10 }: { pageSize?: number }) => {
+  const dispatch = useAppDispatch()
   const [sorting, setSorting] = useState<SortingState>([])
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -109,7 +106,7 @@ const UserTable = ({
       {/* Button to Open Modal */}
       <button
         className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => dispatch(openModal())}
       >
         Add User
       </button>

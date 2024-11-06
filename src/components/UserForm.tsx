@@ -3,6 +3,11 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useAddUserMutation } from '../services/user'
 import { User } from '../types/user'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
+import {
+  closeModal,
+  modalStateSelector,
+} from '../features/createUserFormModalSlice'
 
 const countries = ['USA', 'Canada', 'UK']
 const citiesByCountry = {
@@ -13,13 +18,9 @@ const citiesByCountry = {
 
 type FormData = Omit<User, 'id'>
 
-const UserForm = ({
-  isModalOpen,
-  setIsModalOpen,
-}: {
-  isModalOpen: boolean
-  setIsModalOpen: (val: boolean) => void
-}) => {
+const UserForm = () => {
+  const dispatch = useAppDispatch()
+  const isModalOpen = useAppSelector(modalStateSelector)
   const [createUser] = useAddUserMutation()
 
   const {
@@ -35,7 +36,7 @@ const UserForm = ({
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
       await createUser(data).unwrap()
-      setIsModalOpen(false)
+      dispatch(closeModal())
       reset()
     } catch (err) {
       console.error('Failed to create user: ', err)
