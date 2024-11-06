@@ -9,8 +9,6 @@ User Manager is a web application built with Vite, React, TypeScript, and Redux.
 - [Getting Started](#getting-started)
 - [Scripts](#scripts)
 - [Folder Structure](#folder-structure)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -34,6 +32,7 @@ This application is built with the following technologies:
 - [json-server](https://github.com/typicode/json-server) - Simple mock API for testing data interactions.
 - [@tanstack/react-table](https://tanstack.com/table/v8) - Headless utility for building fast and flexible tables and data grids.
 - [Lucide React](https://lucide.dev/) - A set of beautiful, open-source icons for React applications.
+- [Visx](https://airbnb.io/visx) - A collection of reusable low-level visualization components for building custom charts and visualizations in React.
 
 ## Getting Started
 
@@ -69,4 +68,49 @@ To get a local copy up and running, follow these steps.
 ```bash
   # Using npm
    npm run dev
+```
+
+## Scripts
+
+1. Start the development website:
+
+```bash
+  # Using npm
+   npm run dev:web
+```
+
+2. Start the development server:
+
+```bash
+  # Using npm
+   npm run dev:server
+```
+
+3. Start both development web and server:
+
+```bash
+  # Using npm
+   npm run dev
+```
+
+## Folder Structure
+
+```
+user-manager
+├── public              # Static assets
+├── src
+│   ├── assets          # Images, icons, etc.
+│   ├── components      # Reusable components
+│   ├── services        # Services to call backend apis with rtk query.
+│   ├── pages           # Page components
+│   ├── store           # Redux store configuration
+│   ├── types           # TypeScript type definitions
+│   ├── App.tsx         # Root component
+│   ├── main.tsx        # Entry point
+│   └── index.css       # Global styles
+├── .eslintrc.js        # ESLint configuration
+├── .prettierrc         # Prettier configuration
+├── tsconfig.json       # TypeScript configuration
+└── vite.config.ts      # Vite configuration
+
 ```
