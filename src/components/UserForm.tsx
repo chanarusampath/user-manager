@@ -16,7 +16,7 @@ const citiesByCountry = {
   UK: ['London', 'Manchester', 'Birmingham'],
 }
 
-type FormData = Omit<User, 'id'>
+type FormData = Omit<User, 'id' | 'createdAt'>
 
 const UserForm = () => {
   const dispatch = useAppDispatch()
@@ -35,7 +35,7 @@ const UserForm = () => {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
-      await createUser(data).unwrap()
+      await createUser({ ...data, createdAt: new Date() }).unwrap()
       dispatch(closeModal())
       reset()
     } catch (err) {

@@ -7,4 +7,5 @@ export type User = {
   dob: Date
   country: string
   city: string
+  createdAt: Date
 }

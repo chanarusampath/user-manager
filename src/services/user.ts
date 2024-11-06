@@ -11,10 +11,10 @@ export const userApi = createApi({
       query: ({ pageIndex, pageSize }) => {
         if (pageIndex !== undefined && pageSize !== undefined) {
           // If pagination params are provided, return paginated data
-          return `users?_page=${pageIndex + 1}&_limit=${pageSize}`
+          return `users?_page=${pageIndex + 1}&_limit=${pageSize}&_sort=createdAt&_order=desc`
         }
         // If no pagination params, return all data
-        return 'users'
+        return 'users?_sort=createdAt&_order=desc'
       },
       transformResponse: (response: User[], meta) => {
         // Get the total count from headers
