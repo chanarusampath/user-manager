@@ -18,7 +18,7 @@ import {
 import { useAppDispatch } from '../store/hooks'
 import { openModal } from '../features/createUserFormModalSlice'
 
-const UserTable = ({ pageSize = 10 }: { pageSize?: number }) => {
+const UserTable = ({ pageSize = 1000 }: { pageSize?: number }) => {
   const dispatch = useAppDispatch()
   const [sorting, setSorting] = useState<SortingState>([])
   const [pagination, setPagination] = useState<PaginationState>({
