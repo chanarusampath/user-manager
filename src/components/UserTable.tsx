@@ -16,8 +16,9 @@ import {
   ArrowUpNarrowWide,
 } from 'lucide-react'
 import { useAppDispatch } from '../store/hooks'
-import { openModal } from '../features/createUserFormModalSlice'
+import { openModal, setModalType } from '../features/createUserFormModalSlice'
 import { debounce } from 'lodash'
+import { setSelectedUser } from '../features/userSlice'
 
 const UserTable = ({ pageSize = 100 }: { pageSize?: number }) => {
   const dispatch = useAppDispatch()
@@ -89,6 +90,22 @@ const UserTable = ({ pageSize = 100 }: { pageSize?: number }) => {
         cell: (info) => info.getValue(),
         enableSorting: true,
       },
+      {
+        id: 'actions',
+        header: 'Actions',
+        cell: ({ row }) => (
+          <button
+            onClick={() => {
+              dispatch(setModalType('update'))
+              dispatch(setSelectedUser(row.original))
+              dispatch(openModal())
+            }}
+            className="flex items-center justify-center h-6 p-4 text-white bg-cyan-500 w-full rounded-sm"
+          >
+            Edit
+          </button>
+        ),
+      },
     ],
     []
   )
@@ -127,7 +144,11 @@ const UserTable = ({ pageSize = 100 }: { pageSize?: number }) => {
 
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={() => dispatch(openModal())}
+          onClick={() => {
+            dispatch(setSelectedUser(undefined))
+            dispatch(setModalType('create'))
+            dispatch(openModal())
+          }}
         >
           Add User
         </button>
