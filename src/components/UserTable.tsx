@@ -97,8 +97,6 @@ const UserTable = ({ pageSize = 10 }: { pageSize?: number }) => {
   if (error)
     return <div className="text-center text-red-500 p-4">Error occurred!</div>
 
-  debugger
-
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4 text-center">User Table</h1>

@@ -46,9 +46,11 @@ const UserForm = () => {
   return (
     <>
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded shadow-lg w-full max-w-md">
-            <h2 className="text-xl font-semibold mb-4">Add New User</h2>
+        <div className="fixed overflow-y-auto inset-0 bg-black bg-opacity-50 flex  justify-center z-50">
+          <div className="bg-white  rounded shadow-lg w-full max-w-md ">
+            <h2 className="text-xl px-6 pt-6 font-semibold mb-2">
+              Add New User
+            </h2>
 
             <form
               onSubmit={handleSubmit(onSubmit)}
