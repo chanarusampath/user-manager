@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm run dev:server & dev:web",
+    "dev": "npm run dev:server & npm run dev:web",
     "dev:web": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
