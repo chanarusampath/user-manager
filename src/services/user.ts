@@ -8,27 +8,36 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/' }),
   endpoints: (builder) => ({
     getAllUsers: builder.query<PaginatedResponse<User>, Pagination>({
-      query: ({ pageIndex, pageSize }) => {
+      query: ({ pageIndex, pageSize, search }) => {
         if (pageIndex !== undefined && pageSize !== undefined) {
-          // If pagination params are provided, return paginated data
-          return `users?_page=${pageIndex + 1}&_limit=${pageSize}&_sort=createdAt&_order=desc`
+          return `users?_page=${pageIndex + 1}&_per_page=${pageSize}&_sort=createdAt${search ? `&name=${search}` : ''}`
         }
-        // If no pagination params, return all data
-        return 'users?_sort=createdAt&_order=desc'
+        return `users?_sort=createdAt&_order=desc${search ? `&_name_like=${search}` : ''}`
       },
-      transformResponse: (response: User[], meta) => {
-        // Get the total count from headers
-        const totalItems = parseInt(
-          meta?.response?.headers.get('X-Total-Count') || '0',
-          10
-        )
-
-        return { data: response, totalItems }
+      transformResponse: (
+        response: {
+          data: User[]
+          items: number
+          next?: number
+          prev?: number
+          pages: number
+        } & User[]
+      ) => {
+        return {
+          data: response.data || response,
+          totalItems: response.items,
+          next: response.next,
+          prev: response.prev,
+          pages: response.pages,
+        }
       },
       providesTags: (result) =>
-        result
+        result?.data
           ? [
-              ...result.data.map(({ id }) => ({ type: 'Users' as const, id })),
+              ...result.data.map(({ id }) => ({
+                type: 'Users' as const,
+                id,
+              })),
               { type: 'Users', id: 'LIST' },
             ]
           : [{ type: 'Users', id: 'LIST' }],

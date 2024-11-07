@@ -17,15 +17,31 @@ import {
 } from 'lucide-react'
 import { useAppDispatch } from '../store/hooks'
 import { openModal } from '../features/createUserFormModalSlice'
+import { debounce } from 'lodash'
 
-const UserTable = ({ pageSize = 1000 }: { pageSize?: number }) => {
+const UserTable = ({ pageSize = 100 }: { pageSize?: number }) => {
   const dispatch = useAppDispatch()
   const [sorting, setSorting] = useState<SortingState>([])
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize,
   })
-  const { data: response, isLoading, error } = useGetAllUsersQuery(pagination)
+  const [search, setSearchTerm] = useState('')
+
+  // Debounced function for search input
+  const debouncedSearch = debounce((value) => {
+    setSearchTerm(value)
+  }, 300)
+
+  // Fetch users with search term and pagination
+  const {
+    data: response,
+    isLoading,
+    error,
+  } = useGetAllUsersQuery({
+    ...pagination,
+    search,
+  })
 
   const users = response?.data || []
 
@@ -82,15 +98,14 @@ const UserTable = ({ pageSize = 1000 }: { pageSize?: number }) => {
     columns,
     state: {
       sorting,
-      pagination: { pageIndex: pagination.pageIndex - 1, pageSize },
+      pagination,
     },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onPaginationChange: setPagination,
-    pageCount: response
-      ? Math.ceil(response?.totalItems / pagination.pageSize)
-      : -1,
+    rowCount: response?.totalItems,
+    manualPagination: true,
   })
 
   if (isLoading) return <div className="text-center p-4">Loading...</div>
@@ -101,14 +116,24 @@ const UserTable = ({ pageSize = 1000 }: { pageSize?: number }) => {
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4 text-center">User Table</h1>
 
-      {/* Button to Open Modal */}
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-        onClick={() => dispatch(openModal())}
-      >
-        Add User
-      </button>
+      {/* Search Field and Add User Button */}
+      <div className="flex justify-between mb-4">
+        <input
+          type="text"
+          placeholder="Search by name..."
+          onChange={(e) => debouncedSearch(e.target.value)}
+          className="border rounded p-2 flex-1 mr-4"
+        />
 
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+          onClick={() => dispatch(openModal())}
+        >
+          Add User
+        </button>
+      </div>
+
+      {/* Users Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full border border-gray-300 divide-y divide-gray-200">
           <thead className="bg-gray-100">
@@ -156,44 +181,23 @@ const UserTable = ({ pageSize = 1000 }: { pageSize?: number }) => {
 
       {/* Pagination Controls */}
       <div className="flex justify-between items-center mt-2">
-        <div>
-          <div className="flex items-center mt-2">
-            <span>Show</span>
-            <select
-              value={pagination.pageSize}
-              onChange={(e) =>
-                setPagination((prev) => ({
-                  ...prev,
-                  pageSize: Number(e.target.value),
-                }))
-              }
-              className="mx-2 p-1 border rounded"
-            >
-              {[5, 10, 20, 50].map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-            <span>rows per page</span>
-          </div>
-        </div>
         <div className="flex gap-4 items-center justify-center">
           <button
             onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            disabled={!response?.prev}
             className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
           >
             Previous
           </button>
 
           <span>
-            Page {pagination.pageIndex + 1} of {table.getPageCount()}
+            Page {table.getState().pagination.pageIndex + 1} of{' '}
+            {table.getPageCount().toLocaleString()}
           </span>
 
           <button
             onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            disabled={!response?.next}
             className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
           >
             Next
