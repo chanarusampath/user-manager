@@ -53,8 +53,7 @@ The application architecture has been designed to ensure a clean, modular, and s
 - **User List**: View a list of users with essential details.
 - **Add User**: Add new users to the list with form validation.
 - **Edit User**: Edit existing user details.
-- **Delete User**: Remove users from the list.
-- **Search**: Quickly find users by name or other criteria.
+- **Search**: Quickly find users by name. and this only support full match.
 
 ## Technologies
 

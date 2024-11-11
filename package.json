@@ -10,11 +10,14 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "npx prettier . --write",
-    "dev:server": "json-server --watch server/db.json --port 4000"
+    "dev:server": "json-server --watch server/db.json --port 4000",
+    "test": "npx vitest run"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
     "@tanstack/react-table": "^8.20.5",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
     "@visx/axis": "^3.10.1",
     "@visx/group": "^3.3.0",
     "@visx/legend": "^3.10.3",
@@ -45,11 +48,14 @@
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.11.0",
     "json-server": "^1.0.0-beta.3",
+    "playwright": "^1.48.2",
     "postcss": "^8.4.47",
     "prettier": "3.3.3",
     "tailwindcss": "^3.4.14",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.11.0",
-    "vite": "^5.4.10"
+    "vite": "^5.4.10",
+    "vitest": "^2.1.4",
+    "vitest-browser-react": "^0.0.3"
   }
 }

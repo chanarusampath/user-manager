@@ -3,6 +3,10 @@ import { Group } from '@visx/group'
 import { scaleOrdinal } from '@visx/scale'
 import { User } from '../types/user'
 
+/**
+ * This component return a pie chart based on the filed provided.
+ * @returns Pie Chart Component.
+ */
 const PieChart = ({
   users,
   field,
@@ -10,7 +14,7 @@ const PieChart = ({
   height = 300,
 }: {
   users: Array<User>
-  field: keyof Omit<User, 'dob'>
+  field: keyof Omit<User, 'dob' | 'createdAt'>
   width?: number
   height?: number
 }) => {

@@ -1,5 +1,9 @@
 import { Link, NavLink } from 'react-router-dom'
 
+/**
+ * This is the header in the website.
+ * @returns Header component
+ */
 const Header = () => {
   return (
     <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
